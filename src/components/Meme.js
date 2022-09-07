@@ -10,7 +10,6 @@ const Meme = () => {
   });
   const [allMemes, setAllMemes] = useState(MemeData);
 
-  Promise;
   useEffect(() => {
     fetch(`https://api.imgflip.com/get_memes`)
       .then((res) => res.json())
