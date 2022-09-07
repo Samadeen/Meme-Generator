@@ -1,27 +1,25 @@
-import React from 'react';
+import { useState, useEffect } from 'react';
 import MemeData from './MemeData';
 import './Meme.css';
 
-export default function Meme() {
-  /**
-   * Challenge:
-   * 1. Set up the text inputs to save to
-   *    the `topText` and `bottomText` state variables.
-   * 2. Replace the hard-coded text on the image with
-   *    the text being saved to state.
-   */
-
-  const [meme, setMeme] = React.useState({
+const Meme = () => {
+  const [meme, setMeme] = useState({
     topText: '',
     bottomText: '',
     randomImage: 'http://i.imgflip.com/1bij.jpg',
   });
-  const [allMemeImages, setAllMemeImages] = React.useState(MemeData);
+  const [allMemes, setAllMemes] = useState(MemeData);
+
+  Promise;
+  useEffect(() => {
+    fetch(`https://api.imgflip.com/get_memes`)
+      .then((res) => res.json())
+      .then((data) => setAllMemes(data.data.memes));
+  }, []);
 
   const getMemeImage = () => {
-    const memesArray = allMemeImages.data.memes;
-    const randomNumber = Math.floor(Math.random() * memesArray.length);
-    const url = memesArray[randomNumber].url;
+    const randomNumber = Math.floor(Math.random() * allMemes.length);
+    const url = allMemes[randomNumber].url;
     setMeme((prevMeme) => ({
       ...prevMeme,
       randomImage: url,
@@ -66,4 +64,6 @@ export default function Meme() {
       </div>
     </main>
   );
-}
+};
+
+export default Meme;
